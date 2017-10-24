@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use Nette;
+use Nette\Application\UI\Form;
 
 class PostPresenter extends \Nette\Application\UI\Presenter {
 
@@ -24,5 +25,22 @@ class PostPresenter extends \Nette\Application\UI\Presenter {
     }
 
     $this->template->post = $post;
+    $this->template->comments = $post->related('web_komentare')->order('created_at');
+  }
+
+  protected function createComponentCommentForm() {
+    $form = new Form;
+
+    $form->addText('name', 'Jméno')
+            ->setRequired();
+
+    $form->addEmail('email', 'E-mail');
+
+    $form->addTextArea('content', 'Komentář')
+            ->setRequired();
+
+    $form->addSubmit('send', 'Publikovat komentář');
+
+    return $form;
   }
 }

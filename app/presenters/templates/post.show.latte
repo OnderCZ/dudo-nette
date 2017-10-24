@@ -6,3 +6,15 @@
 <h1 n:block="title">{$post->nadpis}</h1>
 <div class="post">{$post->perex}</div>
 <div class="post">{$post->text}</div>
+
+<h2>Komentáře</h2>
+<div class="comments">
+
+</div>
+{foreach $comments as $comment}
+  <p><b><a href="mailto:{$comment->mejl}" n:tag-if="$comment->mejl">{$comment->jmeno}</a> napsal:</b></p>
+  <div>{$comment->text}</div>
+{/foreach}
+
+<h2>Vložte nový komentář</h2>
+{control commentForm}
