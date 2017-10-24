@@ -1,5 +1,9 @@
 parameters:
 
+database:
+	dsn: 'mysql:host=localhost;dbname=dudo_wz_cz_backup'
+	user: root
+	password:
 
 application:
 	errorPresenter: Error
