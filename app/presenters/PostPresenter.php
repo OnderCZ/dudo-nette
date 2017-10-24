@@ -41,6 +41,22 @@ class PostPresenter extends \Nette\Application\UI\Presenter {
 
     $form->addSubmit('send', 'Publikovat komentář');
 
+    $form->onSuccess[] = [$this, 'commentFormSucceeded'];
+
     return $form;
+  }
+
+  public function commentFormSucceeded($form, $values) {
+    $postId = $this->getParameter('postId');
+
+    $this->database->table('web_komentare')->insert([
+        'id_textu' => $postId,
+        'jmeno' => $values->name,
+        'mejl' => $values->email,
+        'text' => $values->content,
+    ]);
+
+    $this->flashMessage('Děkuji za komentář.', 'success');
+    $this->redirect('this');
   }
 }
