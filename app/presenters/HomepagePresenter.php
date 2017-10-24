@@ -5,7 +5,7 @@ namespace App\Presenters;
 use Nette;
 
 
-class HomepagePresenter extends Nette\Application\UI\Presenter
+class HomepagePresenter extends \Nette\Application\UI\Presenter
 {
   /**
    *
@@ -18,8 +18,8 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
   }
 
   public function renderDefault() {
-    $this->template->posts = $this->database->table('web_texty')
-            ->order('created_at DESC');
+    $this->template->posts = $this->database->table('web_texty');
+            //->order('created_at ASC');
             //->limit(5);
   }
 }
