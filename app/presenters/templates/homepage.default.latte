@@ -4,8 +4,11 @@
 <div n:foreach="$posts as $post" class="post">
   <div class="date">{$post->created_at|date:'F j, Y'}</div>
   <h2><a n:href="Post:show $post->id">{$post->nadpis}</a></h2>
-  <div>{$post->perex}</div>
-  <div>{$post->text}</div>
+  <div class="post">
+    {$post->perex|noescape}
+
+    {$post->text|noescape}
+  </div>
 </div>
 
 {/block}

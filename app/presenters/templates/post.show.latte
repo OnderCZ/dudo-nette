@@ -4,8 +4,11 @@
 
 <div class="date">{$post->created_at|date:'F j, Y'}</div>
 <h1 n:block="title">{$post->nadpis}</h1>
-<div class="post">{$post->perex}</div>
-<div class="post">{$post->text}</div>
+<div class="post">
+  {$post->perex|noescape}
+
+  {$post->text|noescape}
+</div>
 
 <h2>Komentáře</h2>
 <div class="comments">
@@ -13,7 +16,7 @@
 </div>
 {foreach $comments as $comment}
   <p><b><a href="mailto:{$comment->mejl}" n:tag-if="$comment->mejl">{$comment->jmeno}</a> napsal:</b></p>
-  <div>{$comment->text}</div>
+  <div>{$comment->text|noescape}</div>
 {/foreach}
 
 <h2>Vložte nový komentář</h2>
