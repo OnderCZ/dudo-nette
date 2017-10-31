@@ -27,6 +27,15 @@ class PostPresenter extends \Nette\Application\UI\Presenter {
     $this->template->post = $post;
     $this->template->comments = $post->related('web_komentare')->order('created_at');
   }
+  
+  public function actionEdit($postId) {
+    $post = $this->database->table('web_texty')->get($postId);
+    
+    if(!$post) {
+      $this->error('Příspěvek nebyl nalezen');
+    }
+    $this['postForm']->setDefaults($post->toArray());
+  }
 
   protected function createComponentCommentForm() {
     $form = new Form;
@@ -58,5 +67,39 @@ class PostPresenter extends \Nette\Application\UI\Presenter {
 
     $this->flashMessage('Děkuji za komentář.', 'success');
     $this->redirect('this');
+  }
+  
+  public function createComponentPostForm() {
+    $form = new Form();
+    
+    $form->addText('nadpis', 'Titulek:')
+            ->setRequired();
+    $form->addTextArea('text', 'Obsah:')
+            ->setRequired();
+    $form->addSubmit('send', 'Uložit a publikovat');
+    $form->onSuccess[] = [$this, 'postFormSucceeded'];
+    
+    return $form;
+  }
+  
+  public function postFormSucceeded($form, $values) {
+    
+    $postId = $this->getParameter('postId');
+    
+    if($postId) {
+      $post = $this->database->table('web_texty')->get($postId);
+      $post->update([
+        'nadpis' => $values->nadpis,
+        'text' => $values->text,          
+      ]);
+    } else {
+      $post = $this->database->table('web_texty')->insert([
+                'nadpis' => $values->nadpis,
+                'text' => $values->text,
+      ]);      
+    }
+    
+    $this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
+    $this->redirect('Post:show', $post->id);
   }
 }

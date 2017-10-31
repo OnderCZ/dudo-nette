@@ -18,8 +18,8 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter
   }
 
   public function renderDefault() {
-    $this->template->posts = $this->database->table('web_texty');
-            //->order('created_at ASC');
-            //->limit(5);
+    $this->template->posts = $this->database->table('web_texty')
+            ->order('created_at ASC')
+            ->limit(5);
   }
 }
