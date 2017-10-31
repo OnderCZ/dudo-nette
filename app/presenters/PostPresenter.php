@@ -11,7 +11,7 @@ class PostPresenter extends \Nette\Application\UI\Presenter {
    *
    * @var \Nette\Database\Context
    */
-  private $database;
+  private $database;  
 
   public function __construct(\Nette\Database\Context $database) {
     $this->database = $database;

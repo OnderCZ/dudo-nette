@@ -15,5 +15,6 @@ session:
 	expiration: 14 days
 
 
-services:
+services:    
 	router: App\RouterFactory::createRouter
+	- App\Model\ArticleManager
