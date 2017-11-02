@@ -1,7 +1,7 @@
 {block content}
 <h1 n:block="title">Old dudo</h1>
 
-<a n:href="Post:create">Napsat nový příspěvek</a>
+<a n:href="Post:create" n:if="$user->loggedIn">Napsat nový příspěvek</a>
 
 <div n:foreach="$posts as $post" class="post">
   <div class="date">{$post->created_at|date:'F j, Y'}</div>
@@ -12,7 +12,7 @@
     {$post->text|noescape}
   </div>
 </div>
-  
+
 <div class="pagination">
   {if $page > 1}
 	<a n:href="Homepage:default 1">První</a>
@@ -20,11 +20,11 @@
 	<a n:href="Homepage:default $page-1">Předchozí</a>
 	&nbsp;|&nbsp;
   {/if}
-  
+
   Stránka {$page} z {$lastPage}
-  
+
   {if $page < $lastPage}
-	&nbsp;|&nbsp;	
+	&nbsp;|&nbsp;
 	<a n:href="Homepage:default $page+1 ">Další</a>
 	&nbsp;|&nbsp;
 	<a n:href="Homepage:default $lastPage">Poslední</a>

@@ -1,7 +1,7 @@
 parameters:
 
 database:
-	dsn: 'mysql:host=localhost:3306;dbname=dudo_wz_cz_backup'
+	dsn: 'mysql:host=localhost:3307;dbname=dudo_wz_cz_backup'
 	user: root
 	password:
 
@@ -15,6 +15,10 @@ session:
 	expiration: 14 days
 
 
-services:    
+services:
 	router: App\RouterFactory::createRouter
 	- App\Model\ArticleManager
+
+security:
+	users:
+		admin: heslo
